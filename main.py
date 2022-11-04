@@ -23,7 +23,7 @@ class params(BaseModel):
     y: int
 
 
-@app.post("/calculate")
+@app.post("/")
 def calc(params: params):
     result = None
 
