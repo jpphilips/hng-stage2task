@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import nltk
+
+nltk.download('punkt')
 
 app = FastAPI(
     title="HNGi9 TAsk 2 API",
@@ -23,7 +26,7 @@ class params(BaseModel):
     y: int
 
 
-@app.get("/home")
+@ app.get("/home")
 def home():
     return {
         "slackUsername": "Jp",
@@ -33,20 +36,28 @@ def home():
     }
 
 
-@app.post("/")
+@ app.post("/")
 async def calc(params: params):
     result = None
+    operation = None
 
-    if params.operation_type.lower() == 'addition':
+    words = nltk.word_tokenize(params.operation_type)
+
+    if any(operator in words for operator in ['add', 'addition', 'sum', '+', 'combine']):
+        operation = 'addition'
         result = params.x + params.y
-    elif params.operation_type.lower() == 'subtraction':
+    elif any(operator in words for operator in ['subtract', 'minus', '-', 'seperate', 'subtraction']):
+        operation = 'subtraction'
         result = params.x - params.y
-    elif params.operation_type.lower() == 'multiplication':
+    elif any(operator in words for operator in ['multiply', 'multiplication', '*']):
+        operation = 'multiplication'
         result = params.x * params.y
+    else:
+        raise HTTPException(status_code=404, detail='Operation not found')
 
     answer = {
         "slackUsername": 'Jp',
-        "operation_type": params.operation_type,
+        "operation_type": operation,
         "result": result,
     }
     return answer
