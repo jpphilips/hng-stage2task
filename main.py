@@ -49,7 +49,7 @@ async def calc(params: params):
     elif any(operator in words for operator in ['subtract', 'minus', '-', 'seperate', 'subtraction']):
         operation = 'subtraction'
         result = params.x - params.y
-    elif any(operator in words for operator in ['multiply', 'multiplication', '*']):
+    elif any(operator in words for operator in ['multiply', 'multiplication', '*', 'x']):
         operation = 'multiplication'
         result = params.x * params.y
     else:
