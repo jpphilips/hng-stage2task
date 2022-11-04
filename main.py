@@ -23,8 +23,18 @@ class params(BaseModel):
     y: int
 
 
+@app.get("/home")
+def home():
+    return {
+        "slackUsername": "Jp",
+        "backend": True,
+        "age": 26,
+        "bio": "Life is Uncertain; eat first"
+    }
+
+
 @app.post("/")
-def calc(params: params):
+async def calc(params: params):
     result = None
 
     if params.operation_type.lower() == 'addition':
