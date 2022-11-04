@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 app = FastAPI(
-    title="College API",
+    title="HNGi9 TAsk 2 API",
     description="An api endoint that returns a json response for Hng internship",
 )
 
@@ -23,7 +23,7 @@ class params(BaseModel):
     y: int
 
 
-@app.post("/calculaate")
+@app.post("/calculate")
 def calc(params: params):
     result = None
 
