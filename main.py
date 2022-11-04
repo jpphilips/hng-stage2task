@@ -47,6 +47,6 @@ async def calc(params: params):
     answer = {
         "slackUsername": 'Jp',
         "operation_type": params.operation_type,
-        "result": result
+        "result": result,
     }
     return answer
